@@ -1,0 +1,29 @@
+.products-header{
+    margin: 20px 0 10px
+}
+.add-product-btn{
+    text-align: right;
+}
+.products .card{
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+}
+.products .labels{
+    font-size: 12px;
+    color: #999999
+}
+.products .actions{
+    color: #666666;
+}
+.help-block{
+    color: brown;
+    font-size: 13px;
+}
+.product-details .card{
+    margin-bottom: 14px;
+    padding: 10px;
+}
+.product-details .p-labels{
+    color: #666666;
+}

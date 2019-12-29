@@ -1,0 +1,169 @@
+<div class="products-header">
+    <div class="row" *ngIf="isList">
+        <div class="col-6">
+            <h3 class="text-left text-header">Products</h3>
+        </div>
+        <div class="col-6">
+            <div class="add-product-btn"><button class="btn btn-primary" type="button" (click)="openCreateForm()">Add Product</button></div>
+        </div>
+    </div>
+    <div class="row" *ngIf="isForm">
+        <div class="col-12">
+            <h3 class="text-left text-header" *ngIf="productToUpdate; else create">
+                Update Product
+            </h3>
+            <ng-template #create>
+                <h3 class="text-left"> Create New Product </h3>
+            </ng-template>
+        </div>
+    </div>
+</div>
+<div class="products" *ngIf="isList">
+    <div class="card" *ngFor="let product of products">
+        <div class="row">
+            <div class="col-6 col-md-2">
+                <div class="labels">
+                    Product SKU
+                </div>
+                <div class="values">
+                    {{product.sku}}
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="labels">
+                    Product Name
+                </div>
+                <div class="values">
+                    {{product.name}}
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="labels">
+                    Stock Availability
+                </div>
+                <div class="values">
+                    {{product.quantity}}
+                </div>
+            </div>
+            <div class="col-6 col-md-2">
+                <div class="labels">
+                    Price
+                </div>
+                <div class="values">
+                    {{product.price}}
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="labels">
+                    &nbsp;
+                </div>
+                <div class="values actions">
+                    <button type="button" class="btn btn-sm btn-success" (click)="viewDetails(product)">View</button>
+                    &nbsp;&nbsp;<button type="button" class="btn btn-sm btn-danger" (click)="deleteProduct(product)">Delete</button>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<form *ngIf="isForm" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group" [ngClass]="{ 'has-error': invalidName() }">
+                <label for="name" class="control-label">Product Name</label>
+                <input type="text" formControlName="name" class="form-control" id="name" name="name" placeholder="Product Name">
+                <p *ngIf="invalidName()" id="name_error" class="help-block">{{this.serviceErrors.name || 'Invalid product name.'}}</p>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': invalidSKU() }">
+                <label for="name" class="control-label">Product SKU</label>
+                <input type="text" formControlName="sku" class="form-control" id="sku" name="sku" placeholder="Product SKU">
+                <p *ngIf="invalidSKU()" id="sku_error" class="help-block">{{this.serviceErrors.sku || 'Invalid product SKU.'}}</p>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': invalidPrice() }">
+                <label for="name" class="control-label">Product Price</label>
+                <input type="text" formControlName="price" class="form-control" id="price" name="price" placeholder="Product Price">
+                <p *ngIf="invalidPrice()" id="price_error" class="help-block">{{this.serviceErrors.price || 'Invalid product Price.'}}</p>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': invalidQuantity() }">
+                <label for="name" class="control-label">Available Quantity</label>
+                <input type="text" formControlName="quantity" class="form-control" id="quantity" name="quantity" placeholder="Product Quantity">
+                <p *ngIf="invalidQuantity()" id="quantity_error" class="help-block">{{this.serviceErrors.quantity || 'Invalid product Quantity.'}}</p>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': invalidDescription() }">
+                <label for="name" class="control-label">Product Description</label>
+                <textarea formControlName="description" class="form-control" id="description" name="description" placeholder="Product Description"></textarea>
+                <p *ngIf="invalidDescription()" id="description_error" class="help-block">{{this.serviceErrors.description || 'Invalid product Description.'}}</p>
+            </div>
+            <div class="form-group"> <!-- Register Button -->
+                <button type="button" class="btn btn-warning" (click)="viewAllProducts()">Cancel</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>        
+<div class="product-details" *ngIf="isDetails">
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-left text-header">Product Details</h3>
+        </div>
+        <div class="col-6">
+            <div class="add-product-btn">
+                <button type="button" class="btn btn-info" (click)="viewAllProducts()">View All Products</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="row">
+                    <div class="col-6 p-labels">
+                        Product SKU
+                    </div>
+                    <div class="col-6">
+                        {{productDetail?.sku}}
+                    </div>
+                </div>
+            </div>
+            <div class="card">    
+                <div class="row">
+                    <div class="col-6 p-labels">
+                        Product Name
+                    </div>
+                    <div class="col-6">
+                        {{productDetail?.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="card">     
+                <div class="row">
+                    <div class="col-6 p-labels">
+                        Product Price
+                    </div>
+                    <div class="col-6">
+                        {{productDetail?.price}}
+                    </div>
+                </div>
+            </div>
+            <div class="card">    
+                <div class="row">
+                    <div class="col-6 p-labels">
+                        Product Stock
+                    </div>
+                    <div class="col-6">
+                        {{productDetail?.quantity}}
+                    </div>
+                </div>
+            </div>
+            <div class="card">     
+                <div class="row">
+                    <div class="col-6 p-labels">
+                        Product Description
+                    </div>
+                    <div class="col-6">
+                        {{productDetail?.description}}
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>        
