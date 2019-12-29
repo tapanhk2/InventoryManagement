@@ -18,10 +18,20 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+# Angular Project Installation
+#### Clone the project : git clone https://github.com/tapanhk2/InventoryManagement.git
+#### cd to InventoryManagement
+#### Install the npm packages: npm install
+#### Environments file set up at src/environments
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+# NodeJS Project Installation
+#### cd to InventoryManagement server-api
+#### Install the npm packages: npm install
+#### Environments file set up: update .env_sample to .env and update the file as per requirement.
+#### run nodejs : node app.js
 
-## Further help
+## We have to run angular-frontend and node-js-backend in separate PORT
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+### Added testing db format at root folder(inv.sql) 
+#### Default username: admin, password: admin
